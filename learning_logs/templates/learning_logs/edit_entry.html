@@ -1,0 +1,28 @@
+{% extends "learning_logs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+    <div class="pb-2 mb-2 border-bottom">
+        <h3>{{ topic }}</h3>
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+    <ul class="nav mb-2">
+        <a href="{% url 'learning_logs:topic' topic.id%}" class="nav-link active">Back to topic</a>
+    </ul>
+    <div class="card">
+        <div class="card-header">
+            Edit entry
+        </div>
+        <div class="card-body">
+            <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="d-flex flex-row-reverse">
+                    {% bootstrap_button "Save changes" button_type="submit" %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

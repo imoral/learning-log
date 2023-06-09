@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:'en_us' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block title %}
+    <title>Learning Log</title>
+    {% endblock title %}
+
+    {# Load CSS #}
+    {% bootstrap_css %}
+</head>
+<body>
+    {# Load JavaScript #}
+    {% bootstrap_javascript %}
+    {% block sidebar %}
+        <nav class="navbar navbar-expand-lg bg-light mb-4 px-5 border">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav flex-grow-1 me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'learning_logs:topics' %}">Topics</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item d-flex">
+                                <span class="navbar-text flex-fill text-success">Hello, {{ user.username }}</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock sidebar %}
+
+    <main role="main" class="container">
+
+        {% block page_header %}
+            <!-- we'll use this block to title most pages. -->
+        {% endblock page_header %}
+
+
+        {% block content %}
+            <!-- we'll use this block to style the content of any page. -->
+        {% endblock content %}
+
+    </main>
+</body>
+</html>

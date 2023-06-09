@@ -1,0 +1,37 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+    <div class="pb-2 mb-2 border-bottom">
+        <h3>Topics</h3>
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+    <ul class="nav mb-2">
+        {% if filter %}
+            <a class="nav-link active" href="{% url 'learning_logs:topics' %}">All</a>
+            <a class="nav-link disabled" href="#">My topics</a>
+        {% else %}
+            <a class="nav-link disabled" href="#">All</a>
+            <a class="nav-link active" href="{% url 'learning_logs:my_topics' %}">My topics</a>
+        {% endif %}
+    </ul>
+    <div class="list-group mx-0 mb-4 w-auto">
+        {% for topic in topics %}
+            <a href="{% url 'learning_logs:topic' topic.id%}" class="list-group-item list-group-item-action">
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                  <div>
+                    <h6 class="mb-0">{{ topic }}</h6>
+                    <p class="mb-0 opacity-75">by {{ topic.owner }}</p>
+                  </div>
+                  <small class="opacity-50 text-nowrap">{{ topic.date_added|date:'M d, Y H:i' }}</small>
+                </div>
+            </a>
+        {% empty %}
+            <span>No topics have been added yet.</span>
+        {% endfor %}
+    </div>
+    <div class="d-flex flex-row-reverse">
+        <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary" role="button">Add a new topic</a>
+    </div>
+{% endblock content %}

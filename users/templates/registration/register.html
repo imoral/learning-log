@@ -1,0 +1,26 @@
+{% extends "learning_logs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div class="container">
+        <div class="text-center">
+            <h3 class="mb-3 fw-bold">Sign up to start your learning log.</h3>
+        </div>
+        <div class="d-flex justify-content-center">
+            <form action="{% url 'users:register' %}" method="post" class="col-md-5">
+                {% csrf_token %}
+                {# bootstrap_form form #}
+
+                {% bootstrap_field form.username layout="floating" %}
+
+                {% bootstrap_field form.password1 layout="floating" %}
+
+                {% bootstrap_field form.password2 layout="floating" %}
+
+                {% bootstrap_button "Sign up" button_type="submit" extra_classes="w-100 btn btn-lg" %}
+
+                <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+            </form>
+        </div>
+    </div>
+{% endblock content %}
