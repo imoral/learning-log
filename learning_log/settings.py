@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 # Change this to "False" when you are ready for production
-env = environ.Env(DEBUG=(bool, True))
+env = environ.Env(DEBUG=(bool, False))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
